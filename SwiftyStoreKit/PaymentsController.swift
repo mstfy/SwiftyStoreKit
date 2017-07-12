@@ -100,7 +100,7 @@ class PaymentsController: TransactionController {
 
     func transactionError(for error: NSError?) -> NSError {
         let message = "Unknown error"
-        let altError = NSError(domain: SKErrorDomain, code: SKErrorCode.unknown.rawValue, userInfo: [ NSLocalizedDescriptionKey: message ])
+        let altError = NSError(domain: SKErrorDomain, code: SKError.Code.unknown.rawValue, userInfo: [ NSLocalizedDescriptionKey: message ])
         return error ?? altError
     }
 

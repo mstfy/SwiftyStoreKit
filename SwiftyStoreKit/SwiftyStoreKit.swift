@@ -55,7 +55,7 @@ public class SwiftyStoreKit {
                 completion(.error(error: error as NSError))
             } else if let invalidProductId = result.invalidProductIDs.first {
                 let userInfo = [ NSLocalizedDescriptionKey: "Invalid product id: \(invalidProductId)" ]
-                let error = NSError(domain: SKErrorDomain, code: SKErrorCode.paymentInvalid.rawValue, userInfo: userInfo)
+                let error = NSError(domain: SKErrorDomain, code: SKError.Code.paymentInvalid.rawValue, userInfo: userInfo)
                 completion(.error(error: error))
             }
         }
@@ -63,7 +63,7 @@ public class SwiftyStoreKit {
 
     fileprivate func purchase(product: SKProduct, quantity: Int, atomically: Bool, applicationUsername: String = "", completion: @escaping (PurchaseResult) -> Void) {
         guard SwiftyStoreKit.canMakePayments else {
-            let error = NSError(domain: SKErrorDomain, code: SKErrorCode.paymentNotAllowed.rawValue, userInfo: nil)
+            let error = NSError(domain: SKErrorDomain, code: SKError.Code.paymentNotAllowed.rawValue, userInfo: nil)
             completion(.error(error: error))
             return
         }
@@ -120,7 +120,7 @@ public class SwiftyStoreKit {
         }
         return RestoreResults(restoredPurchases: restoredPurchases, restoreFailedPurchases: restoreFailedPurchases)
     }
-    private func storeInternalError(code: SKErrorCode = .unknown, description: String = "") -> NSError {
+    private func storeInternalError(code: SKError.Code = .unknown, description: String = "") -> NSError {
         return NSError(domain: SKErrorDomain, code: code.rawValue, userInfo: [ NSLocalizedDescriptionKey: description ])
     }
 }
